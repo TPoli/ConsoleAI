@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <Windows.h>
@@ -34,7 +33,6 @@ void Update(float a_fDeltaTime);
 void Init();
 
 #pragma endregion
-
 
 void Init()
 {
@@ -98,7 +96,7 @@ void Init()
 
 }
 
-int main()// TODO: units to populate bases / move around map, AI to take bases
+int main()// TODO: units to populate bases / move around map, AI to take bases / use /wall and cleanup
 {
 	Init();
 
@@ -144,6 +142,17 @@ void Update(float a_fDeltaTime)// use this to update AI then level
 		return;
 	CumulativeDeltaTime -= 1.0f / TurnsPerSecond;//this limits it to 2 updates per second and allows it to accelerate in the case of a lag spike
 
+	for (int i = 0; i < BASECOUNT; ++i)
+	{
+		Manager::Instance()->GetBase(i)->BeginTurn();
+	}
+
+	// update moving armies here
+
+	for (int i = 0; i < PLAYERCOUNT; ++i)
+	{
+		Manager::Instance()->GetPlayer(i)->Update();
+	}
 
 	//Manager::Instance()->GetLevel()->Draw();//draw the updated world
 }

@@ -40,3 +40,14 @@ unsigned short Player::GetColour()
 {
 	return m_usColour;
 }
+
+void Player::Update()
+{
+	// update AI
+	FindMyBases();
+}
+
+void Player::FindMyBases()
+{
+	//find bases that belong to me and store them in a std::vector
+}

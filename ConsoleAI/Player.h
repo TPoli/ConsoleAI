@@ -9,12 +9,16 @@ private:
 	unsigned short m_usID;
 
 	void GenerateColour();
+	void FindMyBases();
+
 public:
 	Player(unsigned short a_usID);
 	Player() {}
 	~Player();
 
 	unsigned short GetColour();
+
+	void Update();
 };
 
 #endif// _PLAYER_H_
