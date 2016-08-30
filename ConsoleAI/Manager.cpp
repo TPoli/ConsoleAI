@@ -1,6 +1,13 @@
 #include "Manager.h"
 #include "Player.h"
 
+#include <stdlib.h>
+#include <stdio.h>
+//#include <Windows.h>
+#include <iostream>
+#include <time.h>
+
+
 Manager* Manager::m_opInstance = nullptr;
 
 Manager::Manager()
@@ -56,4 +63,11 @@ Player* Manager::GetPlayer(unsigned short a_uiID)
 	if (a_uiID >= PLAYERCOUNT)
 		return nullptr;
 	return *(m_oppPlayers + a_uiID);
+}
+
+void Manager::OutputText(unsigned short a_usColour, char* a_szText)
+{
+	SetConsoleTextAttribute(g_hstdout, a_usColour);
+	std::cout << a_szText;
+	SetConsoleTextAttribute(g_hstdout, g_ConsoleInfoDefault.wAttributes);
 }
