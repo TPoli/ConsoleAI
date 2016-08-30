@@ -42,13 +42,9 @@ void Manager::Init()
 	{
 		m_oppBases[i] = nullptr;
 	}
-}
 
-void Manager::PostInit()
-{
-	m_opLevel = new AILevel(g_usBufferWidth,g_usBufferHeight);
+	m_opLevel = new AILevel(g_usBufferWidth, g_usBufferHeight);
 }
-
 
 Manager::~Manager()
 {

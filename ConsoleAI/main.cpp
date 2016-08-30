@@ -31,39 +31,37 @@
 int main();
 void Shutdown();
 void Update(float a_fDeltaTime);
+void Init();
 
 #pragma endregion
 
 
-int main()
+void Init()
 {
 	srand(time(NULL));
-	Manager::Instance()->Init();
 
-	clock_t previousTime = clock();
-	clock_t currentTime = clock();
+	#pragma region Console Setup
 
 	Manager::Instance()->g_hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	WORD   index = 0;
-	
-	//get initial console state
-	GetConsoleScreenBufferInfo(Manager::Instance()->g_hstdout, &(Manager::Instance()->g_ConsoleInfoDefault));
+	GetConsoleScreenBufferInfo(Manager::Instance()->g_hstdout, &(Manager::Instance()->g_ConsoleInfoDefault));//get initial console state
+
+	#pragma endregion
+
+	#pragma region WorldSetup
 
 	Manager::Instance()->g_usBufferWidth = Manager::Instance()->g_ConsoleInfoDefault.srWindow.Right - Manager::Instance()->g_ConsoleInfoDefault.srWindow.Left + 1;
 	Manager::Instance()->g_usBufferHeight = Manager::Instance()->g_ConsoleInfoDefault.srWindow.Bottom - Manager::Instance()->g_ConsoleInfoDefault.srWindow.Top;//no +1 to give a space between each screen
 
-	Manager::Instance()->PostInit();// fold into Init
+	#pragma endregion
 
-	std::cout << "Press escape to quit.\n";
+	#pragma region Setup Bases
+
+	Manager::Instance()->Init();
 
 	Manager::Instance()->OutputText(Manager::Instance()->GetPlayer(0)->GetColour(), "AI A\n");
 	Manager::Instance()->OutputText(Manager::Instance()->GetPlayer(1)->GetColour(), "AI B\n");
 	Manager::Instance()->OutputText(Manager::Instance()->GetPlayer(2)->GetColour(), "AI C\n");
 	Manager::Instance()->OutputText(Manager::Instance()->GetPlayer(3)->GetColour(), "AI D\n");
-
-	// TODO: units to populate bases / move around map, AI to take bases
-
-	bool running = true;
 
 	int TargetBaseCount = 16;
 	int BaseCount = 4;
@@ -92,11 +90,26 @@ int main()
 		if (IsValidPosition)
 		{
 			++BaseCount;
-			Manager::Instance()->AddBase(new AIBase(X,Y,(rand() % 9 + 1) * 10));
+			Manager::Instance()->AddBase(new AIBase(X, Y, (rand() % 9 + 1) * 10));
 		}
 	}
 
-	Manager::Instance()->GetLevel()->Draw();
+	#pragma endregion
+
+}
+
+int main()// TODO: units to populate bases / move around map, AI to take bases
+{
+	Init();
+
+	clock_t previousTime = clock();
+	clock_t currentTime = clock();
+
+	std::cout << "Press escape to quit.\n";
+
+	bool running = true;
+
+	Manager::Instance()->GetLevel()->Draw();// display Initial configuration
 
 	while (running)
 	{
@@ -108,7 +121,6 @@ int main()
 		}
 		Update(float(currentTime - previousTime) / CLOCKS_PER_SEC);
 		previousTime = currentTime;
-		
 	}
 
 	Shutdown();
@@ -124,5 +136,14 @@ void Shutdown()
 
 void Update(float a_fDeltaTime)// use this to update AI then level
 {
-	//std::cout << a_fDeltaTime << '\n';
+	static float CumulativeDeltaTime = 0;
+	const float TurnsPerSecond = 2;
+
+	CumulativeDeltaTime += a_fDeltaTime;
+	if (CumulativeDeltaTime < 1.0f / TurnsPerSecond)
+		return;
+	CumulativeDeltaTime -= 1.0f / TurnsPerSecond;//this limits it to 2 updates per second and allows it to accelerate in the case of a lag spike
+
+
+	//Manager::Instance()->GetLevel()->Draw();//draw the updated world
 }

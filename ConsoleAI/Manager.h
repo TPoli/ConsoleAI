@@ -32,7 +32,6 @@ public:
 
 	static Manager* Instance();
 	void Init();
-	void PostInit();
 	~Manager();
 
 	Player* GetPlayer(unsigned short a_uiID);
