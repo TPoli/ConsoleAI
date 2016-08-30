@@ -146,12 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIBase.cpp" />
     <ClCompile Include="AILevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIBase.h" />
     <ClInclude Include="AILevel.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Player.h" />

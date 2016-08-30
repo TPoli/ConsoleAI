@@ -27,6 +27,9 @@
     <ClCompile Include="AILevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AIBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AILevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,7 +7,7 @@
 Player::Player(unsigned short a_usID)
 	: m_usID(a_usID)
 {
-	if (PLAYERCOUNT >= COLOURCOUNT - 1)// too many players to have a unique colour thats not black
+	if (PLAYERCOUNT >= COLOURCOUNT - 1)// too many players to have a unique colour thats not blackor bright White
 		return;
 	bool ColourExists = false;
 	do
@@ -15,7 +15,7 @@ Player::Player(unsigned short a_usID)
 		GenerateColour();
 		for (unsigned short i = 0; i < m_usID; ++i)
 		{
-			if (m_usColour == 0 || Manager::Instance()->GetPlayer(i)->GetColour() == m_usColour)//the colour was black or allready taken
+			if (m_usColour == 0 || m_usColour == 15 || Manager::Instance()->GetPlayer(i)->GetColour() == m_usColour)//the colour was black,Bright White or allready taken
 			{
 				ColourExists = true;
 				break;
