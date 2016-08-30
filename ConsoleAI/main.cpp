@@ -29,6 +29,7 @@
 void OutputText(unsigned short a_usColour, char* a_szText);
 int main();
 void Shutdown();
+void Update(float a_fDeltaTime);
 
 #pragma endregion
 
@@ -52,6 +53,9 @@ int main()
 	srand(time(NULL));
 	Manager::Instance()->Init();
 
+	clock_t previousTime = clock();
+	clock_t currentTime = clock();
+
 	hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	WORD   index = 0;
 	
@@ -65,17 +69,21 @@ int main()
 	OutputText(Manager::Instance()->GetPlayer(2)->GetColour(), "AI C\n");
 	OutputText(Manager::Instance()->GetPlayer(3)->GetColour(), "AI D\n");
 
-	// need to create the map, bases to place on map, units to populate bases / move around map, AI to take bases, deltatime to prevent stupid timeing
+	// need to create the map, bases to place on map, units to populate bases / move around map, AI to take bases
 
 	bool running = true;
 
 	while (running)
 	{
+		currentTime = clock();
 		if (GetAsyncKeyState(VK_ESCAPE) != 0)
 		{
 			running = false;
 			break;
 		}
+		Update(float(currentTime - previousTime) / CLOCKS_PER_SEC);
+		previousTime = currentTime;
+		
 	}
 
 	Shutdown();
@@ -87,4 +95,9 @@ int main()
 void Shutdown()
 {
 	delete Manager::Instance();
+}
+
+void Update(float a_fDeltaTime)
+{
+	std::cout << a_fDeltaTime << '\n';
 }
