@@ -60,10 +60,10 @@ int main()
 
 	std::cout << "Press escape to quit.\n";
 
-	OutputText(Manager::Instance()->GetPlayer(0)->GetColour(), "Player A\n");
-	OutputText(Manager::Instance()->GetPlayer(1)->GetColour(), "Player B\n");
-	OutputText(Manager::Instance()->GetPlayer(2)->GetColour(), "Player C\n");
-	OutputText(Manager::Instance()->GetPlayer(3)->GetColour(), "Player D\n");
+	OutputText(Manager::Instance()->GetPlayer(0)->GetColour(), "AI A\n");
+	OutputText(Manager::Instance()->GetPlayer(1)->GetColour(), "AI B\n");
+	OutputText(Manager::Instance()->GetPlayer(2)->GetColour(), "AI C\n");
+	OutputText(Manager::Instance()->GetPlayer(3)->GetColour(), "AI D\n");
 
 	// need to create the map, bases to place on map, units to populate bases / move around map, AI to take bases, deltatime to prevent stupid timeing
 
